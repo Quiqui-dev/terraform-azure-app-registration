@@ -4,7 +4,7 @@ resource "random_uuid" "role_uuids" {
   for_each = coalesce(var.app_roles, {})
 }
 
-resource "azuread_application_app_role" "this" {
+resource "azuread_application_app_role" "application_registration_roles" {
   for_each = coalesce(var.app_roles, {})
 
   application_id       = azuread_application.this.id
