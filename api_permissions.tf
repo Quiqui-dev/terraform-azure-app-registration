@@ -1,5 +1,5 @@
 resource "azuread_application_api_access" "this" {
-  for_each = var.api_permissions == null ? {} : var.api_permissions
+  for_each = coalesce(var.api_permissions, {})
 
   application_id = azuread_application.this.id
   api_client_id  = each.value["api_client_id"]
@@ -8,7 +8,7 @@ resource "azuread_application_api_access" "this" {
 
 
 resource "azuread_application_api_access" "self_assigned" {
-  for_each = var.api_permissions_self == null ? {} : var.api_permissions_self
+  for_each = toset(coalesce(var.api_permissions_self, []))
 
   application_id = azuread_application.this.id
   api_client_id  = azuread_application.this.client_id

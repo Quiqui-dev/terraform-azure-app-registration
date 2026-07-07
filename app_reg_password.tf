@@ -1,7 +1,7 @@
 resource "time_static" "this" {}
 
 resource "azuread_application_password" "this" {
-  count = var.client_secret_name == null || var.client_secret_lifetime == null ? [] : toset(["enabled"])
+  count = var.client_secret_name != null && var.client_secret_lifetime != null ? toset(["enabled"]) : toset([])
 
   application_id = azuread_application.this.id
   display_name   = var.client_secret_name
@@ -9,6 +9,6 @@ resource "azuread_application_password" "this" {
 }
 
 output "app_reg_client_secret" {
-  value = client_secret_name != null ? azuread_application_password.this["enabled"].value : null
+  value = contains(keys(azuread_application_password.this), "enabled") ? azuread_application_password.this["enabled"] : null
 }
 

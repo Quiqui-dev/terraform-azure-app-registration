@@ -2,7 +2,7 @@
 resource "random_uuid" "this" {}
 
 resource "azuread_application_permission_scope" "api_scope" {
-  for_each = var.api_permissions_scope == null ? tomap({}) : var.api_permissions_scope
+  for_each = coalesce(var.api_permissions_scope, {})
 
   admin_consent_description  = each.value["admin_consent_description"]
   admin_consent_display_name = each.value["admin_consent_display_name"]
