@@ -11,3 +11,4 @@ resource "azuread_application_password" "this" {
 output "app_reg_client_secret" {
   value = client_secret_name != null ? azuread_application_password.this["enabled"].value : null
 }
+
