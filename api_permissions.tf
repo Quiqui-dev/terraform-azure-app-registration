@@ -14,5 +14,3 @@ resource "azuread_application_api_access" "self_assigned" {
   api_client_id  = azuread_application.this.client_id
   scope_ids      = [azuread_application_app_role.application_registration_roles[each.value].role_id]
 }
-
-

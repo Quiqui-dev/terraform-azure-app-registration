@@ -1,4 +1,4 @@
-name: Tf PR Quality Gate (Caller Example)
+name: Tf PR Quality Gate
 
 on:
   pull_request:
