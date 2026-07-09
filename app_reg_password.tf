@@ -8,7 +8,3 @@ resource "azuread_application_password" "this" {
   end_date       = timeadd(time_static.this.rfc3339, var.client_secret_lifetime)
 }
 
-output "app_reg_client_secret" {
-  value = contains(keys(azuread_application_password.this), "enabled") ? azuread_application_password.this["enabled"] : null
-}
-
