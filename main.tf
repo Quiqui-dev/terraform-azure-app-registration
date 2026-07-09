@@ -71,7 +71,7 @@ resource "azuread_application" "this" {
     }
 
     precondition {
-      condition     = try(var.identifier_uri == null || trimspace(var.var.identifier_uri) != "", true)
+      condition     = try(var.identifier_uri == null || trimspace(var.identifier_uri) != "", true)
       error_message = "identifier_uri must not be empty when provided"
     }
 

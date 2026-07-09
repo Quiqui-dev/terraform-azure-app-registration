@@ -7,7 +7,7 @@ locals {
   }
 
   preauthorized_client_scope_pairs = flatten([
-    for scope_name, scope_config in coalesce(var.var.api_permissions_scope, tomap({})) : [
+    for scope_name, scope_config in coalesce(var.api_permissions_scope, tomap({})) : [
       for client_id in coalesce(scope_config.preauthorized_client_ids, []) : {
         client_id  = client_id
         scope_name = scope_name
