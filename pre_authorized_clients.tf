@@ -2,7 +2,7 @@
 locals {
 
   scope_name_to_id = {
-    for api_scope in azuread_azuread_application_permission_scope.api_scope :
+    for api_scope in azuread_application_permission_scope.api_scope :
     api_scope.value => api_scope.id
   }
 
