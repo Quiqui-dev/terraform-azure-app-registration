@@ -1,10 +1,18 @@
+locals {
+  optional_claims_enabled = anytrue([
+    length(coalesce(var.access_token_claims, toset([]))) > 0,
+    length(coalesce(var.id_token_claims, toset([]))) > 0,
+    length(coalesce(var.saml2_token_claims, toset([]))) > 0,
+  ])
+}
+
 resource "azuread_application_optional_claims" "this" {
-  count = var.access_token_claims == null && var.id_token_claims == null && var.saml2_token_claims == null ? 0 : 1
+  count = local.optional_claims_enabled ? 1 : 0
 
   application_id = azuread_application.this.id
 
   dynamic "access_token" {
-    for_each = var.access_token_claims == null ? toset([]) : var.access_token_claims
+    for_each = coalesce(var.access_token_claims, toset([]))
     iterator = item
 
     content {
@@ -16,7 +24,7 @@ resource "azuread_application_optional_claims" "this" {
   }
 
   dynamic "id_token" {
-    for_each = var.id_token_claims == null ? toset([]) : var.id_token_claims
+    for_each = coalesce(var.id_token_claims, toset([]))
     iterator = item
 
     content {
@@ -28,7 +36,7 @@ resource "azuread_application_optional_claims" "this" {
   }
 
   dynamic "saml2_token" {
-    for_each = var.saml2_token_claims == null ? toset([]) : var.saml2_token_claims
+    for_each = coalesce(var.saml2_token_claims, toset([]))
     iterator = item
 
     content {
