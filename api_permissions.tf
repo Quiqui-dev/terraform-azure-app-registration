@@ -2,8 +2,9 @@ resource "azuread_application_api_access" "this" {
   for_each = coalesce(var.api_permissions, {})
 
   application_id = azuread_application.this.id
-  api_client_id  = each.value["api_client_id"]
-  scope_ids      = each.value["scope_ids"]
+  api_client_id  = each.value.api_client_id
+  scope_ids      = each.value.scope_ids
+  role_ids       = each.value.role_ids
 }
 
 

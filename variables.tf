@@ -6,11 +6,16 @@ variable "description" {
 
 variable "api_settings" {
   type = object({
-    known_client_applications      = optional(set(string))
+    known_client_applications      = optional(set(string), [])
     mapped_claims_enabled          = optional(bool, false)
     requested_access_token_version = optional(number, 2)
   })
-  nullable    = false
+  nullable = false
+  default = {
+    known_client_applications      = []
+    mapped_claims_enabled          = false
+    requested_access_token_version = 2
+  }
   description = "A set of values that are set in the api{} block of the app reg"
 }
 
@@ -41,7 +46,13 @@ variable "feature_tags_settings" {
     gallery               = optional(bool, false)
     hide                  = optional(bool, false)
   })
-  nullable    = true
+  nullable = true
+  default = {
+    custom_single_sign_on = false
+    enterprise            = false
+    gallery               = false
+    hide                  = false
+  }
   description = "A set of values which are set in the feature_tags{} block of the app reg"
 }
 
@@ -153,6 +164,13 @@ variable "web_settings" {
     logout_url                                   = optional(string, null)
     redirect_uris                                = optional(set(string), null)
   })
+  default = {
+    homepage_url                                 = null
+    implicit_grant_access_token_issuance_enabled = false
+    implicit_grant_id_token_issuance_enabled     = false
+    logout_url                                   = null
+    redirect_uris                                = null
+  }
   nullable    = true
   description = "an object representing a web app configuration"
 }
