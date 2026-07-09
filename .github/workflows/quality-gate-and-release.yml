@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   quality-gate:
-    uses: Quiqui-dev/central-platform-automation/.github/workflows/terraform-pr-quality-single-module.yml@v1
+    uses: Quiqui-dev/central-platform-automation/.github/workflows/terraform-pr-quality-single-module.yml@v2
     with:
       terraform-path: .
       base-sha: ${{ github.event.pull_request.base.sha }}
